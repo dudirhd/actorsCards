@@ -1,0 +1,12 @@
+#app {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-weight: normal;
+  font-family: "Albert Sans", sans-serif;
+  font-optical-sizing: auto;
+}
+
+* {
+  margin: 0;
+}
