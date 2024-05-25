@@ -1,26 +1,51 @@
 <script setup>
 import {useCounterStore} from '../stores/counter.js'
+import { getAll } from '../axios.js'
+import { onMounted } from 'vue';
+import { deleteRequest } from '../axios.js';
 
 const store = useCounterStore();
+
+onMounted(() => {
+  getAll()
+})
+
+const deleteFunc = (index) => {
+  let a = 0;
+  store.cardsInfo.forEach((i) => {
+    if (i.id == index) {
+      store.cardsInfo.splice(a, 1);
+      deleteRequest(i.id)
+    }
+    a += 1;
+  })
+}
 </script>
 
 <template>
 
 <div class="main-content">
   <header>
-    <h1 class="main-content-heading">Персонажи by "Залипуха" team</h1>    
+    <h1 class="main-content-heading">Актеры by "Залипуха" team</h1>    
   </header>
   <div class="main-content-cards-container">
+    <h1 class="no-cards-mark" v-if="store.cardsInfo.length == 0">Карточек нет, добавьте новые(((((</h1>
     <div
       v-for="i in store.cardsInfo" 
       :key="i"
       class="card"
     > 
-      <img :src="i.img" alt="">
+      <div class="svg-delete" @click="deleteFunc(i.id)">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white"viewBox="0 0 24 24">
+          <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+          <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+        </svg> 
+      </div>   
+      <img :src='i.photo' alt=""> 
       <div class="shadow"></div>
       <div class="card-text">
-        <h3>{{ i.heading }}</h3>
-        <p>{{ i.from }}</p>
+        <h3>{{ i.name }}</h3>
+        <p>{{ i.description }}</p>
       </div>
     </div>
   </div>
@@ -70,9 +95,12 @@ header {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr ;
   gap: 20px;
-  grid-template-rows: 1fr 1fr 1fr;
   justify-items: center;
-  z-index: -3;
+  min-height: 40px;
+}
+
+.no-cards-mark {
+  position: absolute;
 }
 
 .card {
@@ -95,7 +123,7 @@ header {
   position: absolute;
   top: 0;
   right: 0;
-  z-index: -2;
+  z-index: 1;
 }
 
 .shadow {
@@ -107,7 +135,7 @@ header {
   width: 100%;
   height: 100%;
   border-radius: 20px;
-  z-index: -1;
+  z-index: 2;
 }
 
 .card-text {
@@ -117,7 +145,28 @@ header {
   display: flex;
   flex-direction: column;
   gap: 5px;
+  text-align: center;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  z-index: 3;
+}
 
+.card-text h3 {
+  text-transform: uppercase;
+}
+
+.svg-delete {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 10;
+  cursor: pointer;
+}
+
+.svg-delete svg {
+  width: 100%;
+  height: 100%;
 }
 
 body {

@@ -4,7 +4,6 @@ import cardAddPopup from './components/cardAddPopup.vue';
 import {useCounterStore} from './stores/counter.js'
 
 const store = useCounterStore();
-console.log(store.popupFlag)
 </script>
 
 <template>
