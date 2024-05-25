@@ -2,7 +2,6 @@
 import {useCounterStore} from '../stores/counter.js'
 import { getAll } from '../axios.js'
 import { onMounted } from 'vue';
-import { deleteRequest } from '../axios.js';
 
 const store = useCounterStore();
 
