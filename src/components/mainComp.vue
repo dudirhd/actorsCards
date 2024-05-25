@@ -15,7 +15,6 @@ const deleteFunc = (index) => {
   store.cardsInfo.forEach((i) => {
     if (i.id == index) {
       store.cardsInfo.splice(a, 1);
-      deleteRequest(i.id)
     }
     a += 1;
   })

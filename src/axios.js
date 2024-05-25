@@ -44,13 +44,13 @@ export async function newCard(heading, from, image) {
   .then(() => console.log('успех'))
 }
 
-export async function deleteRequest(index) {
-  let config = {
-    method: 'delete',
-    maxBodyLength: Infinity,
-    url: `http://158.160.45.135:8000/characters/${index}`,
-  };
-  return axios.request(config)
-  .then(() => console.log('udalil'))
-  .catch((error) => console.log('error'))
-}
+// export async function deleteRequest(index) {
+//   let config = {
+//     method: 'delete',
+//     maxBodyLength: Infinity,
+//     url: `http://158.160.45.135:8000/characters/${index}`,
+//   };
+//   return axios.request(config)
+//   .then(() => console.log('udalil'))
+//   .catch((error) => console.log('error'))
+// }
